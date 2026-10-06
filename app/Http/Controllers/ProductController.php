@@ -9,19 +9,37 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->get();
+        $query = Product::with('category');
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        if ($request->input('stock_status') === 'low') {
+            $query->where('stock', '<=', 5);
+        }
+
         return Inertia::render('Products/Index', [
-            'products' => $products,
+            'products' => $query->latest()->get(),
+            'categories' => Category::all(['id', 'name']),
+            'filters' => $request->only(['search', 'category_id', 'stock_status']),
         ]);
     }
 
     public function create()
     {
-        $categories = Category::all(['id', 'name']);
         return Inertia::render('Products/Create', [
-            'categories' => $categories,
+            'categories' => Category::all(['id', 'name']),
         ]);
     }
 
@@ -37,15 +55,14 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     public function edit(Product $product)
     {
-        $categories = Category::all(['id', 'name']);
         return Inertia::render('Products/Edit', [
             'product' => $product,
-            'categories' => $categories,
+            'categories' => Category::all(['id', 'name']),
         ]);
     }
 
@@ -61,13 +78,13 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Product deleted permanently.');
     }
 }
