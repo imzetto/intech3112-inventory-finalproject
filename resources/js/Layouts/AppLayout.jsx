@@ -6,12 +6,14 @@ export default function AppLayout({ children, breadcrumbs = [] }) {
     const { url } = usePage();
     const user = auth?.user;
     const roles = user?.roles || [];
+    const isAdmin = roles.includes('Admin');
 
     const navItems = [
         { name: 'Dashboard', href: '/dashboard', active: url === '/dashboard' },
         { name: 'Categories', href: '/categories', active: url.startsWith('/categories') },
         { name: 'Products', href: '/products', active: url.startsWith('/products') },
         { name: 'Stock Logs', href: '/stock-logs', active: url.startsWith('/stock-logs') },
+        ...(isAdmin ? [{ name: 'User Management', href: '/users', active: url.startsWith('/users') }] : []),
     ];
 
     const roleBadge = roles.includes('Admin')

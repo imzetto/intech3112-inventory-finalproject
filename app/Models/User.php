@@ -23,11 +23,19 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'is_active',
+    ];
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
     }
 }

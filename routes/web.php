@@ -34,3 +34,4 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/categories.php';
 require __DIR__.'/products.php';
 require __DIR__.'/stock-logs.php';
+require __DIR__.'/users.php';
