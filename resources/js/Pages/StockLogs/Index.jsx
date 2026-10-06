@@ -20,12 +20,13 @@ export default function Index({ logs = [] }) {
                 )}
             </div>
 
-            <table style={{ width: '100%', backgroundColor: '#fff', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <thead style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0', textAlign: 'left' }}>
-                    <tr>
-                        <th style={{ padding: '12px 16px' }}>Date</th>
-                        <th style={{ padding: '12px 16px' }}>Product</th>
-                        <th style={{ padding: '12px 16px' }}>Type</th>
+            <div className="table-responsive">
+                <table style={{ minWidth: '650px', width: '100%', backgroundColor: '#fff', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                    <thead style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0', textAlign: 'left' }}>
+                        <tr>
+                            <th style={{ padding: '12px 16px' }}>Date</th>
+                            <th style={{ padding: '12px 16px' }}>Product</th>
+                            <th style={{ padding: '12px 16px' }}>Type</th>
                         <th style={{ padding: '12px 16px' }}>Quantity</th>
                         <th style={{ padding: '12px 16px' }}>Recorded By</th>
                         <th style={{ padding: '12px 16px' }}>Reason / Notes</th>
@@ -59,6 +60,7 @@ export default function Index({ logs = [] }) {
                     )}
                 </tbody>
             </table>
+            </div>
         </AppLayout>
     );
 }

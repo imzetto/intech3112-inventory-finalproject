@@ -129,8 +129,8 @@ export default function Index({ users = [], filters = {} }) {
             </div>
 
             {/* User Records Table */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+            <div className="table-responsive" style={{ backgroundColor: '#ffffff', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                <table style={{ minWidth: '650px', width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
                     <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                         <tr>
                             <th style={{ padding: '14px 20px', color: '#475569', fontWeight: '600' }}>Name</th>
@@ -171,12 +171,14 @@ export default function Index({ users = [], filters = {} }) {
                                                 backgroundColor: roleBadge.bg,
                                                 color: roleBadge.text,
                                                 border: `1px solid ${roleBadge.border}`,
-                                                padding: '2px 8px',
+                                                padding: '3px 10px',
                                                 borderRadius: '9999px',
-                                                fontSize: '11.5px',
+                                                fontSize: '11px',
                                                 fontWeight: '700',
                                                 textTransform: 'uppercase',
-                                                letterSpacing: '0.4px'
+                                                letterSpacing: '0.4px',
+                                                whiteSpace: 'nowrap',
+                                                display: 'inline-block'
                                             }}>
                                                 {roleName === 'User' ? 'Regular User' : roleName}
                                             </span>
@@ -186,17 +188,19 @@ export default function Index({ users = [], filters = {} }) {
                                                 backgroundColor: u.is_active ? '#ecfdf5' : '#fff1f2',
                                                 color: u.is_active ? '#065f46' : '#9f1239',
                                                 border: `1px solid ${u.is_active ? '#a7f3d0' : '#fecdd3'}`,
-                                                padding: '2px 8px',
+                                                padding: '3px 10px',
                                                 borderRadius: '4px',
                                                 fontSize: '12px',
-                                                fontWeight: '600'
+                                                fontWeight: '600',
+                                                whiteSpace: 'nowrap',    // 👈 ensures badge stays unified
+                                                display: 'inline-block'
                                             }}>
                                                 {u.is_active ? 'Active' : 'Disabled'}
                                             </span>
                                         </td>
                                         <td style={{ padding: '14px 20px', color: '#64748b' }}>{u.created_at}</td>
                                         <td style={{ padding: '14px 20px', textAlign: 'right' }}>
-                                            {!isAdminRole && !isSelf ? (
+                                            {!isSelf ? (
                                                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '14px' }}>
                                                     <Link
                                                         href={`/users/${u.id}/edit`}
@@ -221,7 +225,7 @@ export default function Index({ users = [], filters = {} }) {
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <span style={{ color: '#94a3b8', fontSize: '12px' }}>Protected</span>
+                                                <span style={{ color: '#94a3b8', fontSize: '12px' }}>Current User (Protected)</span>
                                             )}
                                         </td>
                                     </tr>

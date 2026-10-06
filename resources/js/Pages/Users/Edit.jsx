@@ -90,6 +90,7 @@ export default function Edit({ managedUser }) {
                         >
                             <option value="User">Regular User (Read-only catalogue access)</option>
                             <option value="Manager">Manager (Add & Edit products/categories/logs)</option>
+                            <option value="Admin">Admin (Full administrative privileges)</option>
                         </select>
                         <div style={{ marginTop: '8px', fontSize: '12.5px', color: isRoleChanged ? '#b45309' : '#64748b' }}>
                             {isRoleChanged

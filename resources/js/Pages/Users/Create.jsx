@@ -66,10 +66,13 @@ export default function Create() {
                         >
                             <option value="User">Regular User (Read-only catalogue access)</option>
                             <option value="Manager">Manager (Add & Edit products/categories/logs)</option>
+                            <option value="Admin">Admin (Full administrative privileges)</option>
                         </select>
                         <span style={{ fontSize: '12px', color: '#64748b', marginTop: '4px', display: 'block' }}>
                             {data.role === 'Manager'
                                 ? '⚠️ Managers can modify live inventory records and apply stock movements.'
+                                : data.role === 'Admin'
+                                ? '⚠️ Admins have full administrative privileges.'
                                 : 'Regular users are restricted to read-only views.'}
                         </span>
                     </div>

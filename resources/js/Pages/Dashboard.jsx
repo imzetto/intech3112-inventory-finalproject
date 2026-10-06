@@ -92,54 +92,72 @@ export default function Dashboard({ metrics, recent_logs = [] }) {
 
             {/* Recent Audit Log Preview */}
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-                <div style={{ padding: '18px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ padding: '18px 20px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
                     <div>
                         <h2 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Recent Inventory Movements</h2>
                         <span style={{ fontSize: '13px', color: '#64748b' }}>Latest 5 tracked warehouse transactions</span>
                     </div>
-                    <Link href="/stock-logs" style={{ fontSize: '13.5px', color: '#2563eb', fontWeight: '600', textDecoration: 'none' }}>
+                    <Link href="/stock-logs" style={{ fontSize: '13.5px', color: '#2563eb', fontWeight: '600', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                         View All Logs →
                     </Link>
                 </div>
 
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
-                    <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-                        <tr>
-                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Product</th>
-                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Action</th>
-                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Units</th>
-                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Operator</th>
-                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {recent_logs.length === 0 ? (
-                            <tr><td colSpan="5" style={{ padding: '36px', textAlign: 'center', color: '#94a3b8' }}>No stock movements recorded yet.</td></tr>
-                        ) : (
-                            recent_logs.map(log => (
-                                <tr key={log.id} className="data-row" style={{ borderBottom: '1px solid #f1f5f9' }}>
-                                    <td style={{ padding: '14px 24px', fontWeight: '600', color: '#0f172a' }}>{log.product?.name}</td>
-                                    <td style={{ padding: '14px 24px' }}>
-                                        <span style={{
-                                            padding: '3px 8px',
-                                            borderRadius: '9999px',
-                                            fontSize: '11px',
-                                            fontWeight: '700',
-                                            backgroundColor: log.type === 'IN' ? '#ecfdf5' : '#fffbeb',
-                                            color: log.type === 'IN' ? '#059669' : '#d97706',
-                                            border: `1px solid ${log.type === 'IN' ? '#a7f3d0' : '#fde68a'}`
-                                        }}>
-                                            {log.type === 'IN' ? 'STOCK IN' : 'STOCK OUT'}
-                                        </span>
+                {/* Horizontal Scroll Wrapper */}
+                <div className="table-responsive">
+                    <table style={{ minWidth: '560px', width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+                        <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                            <tr>
+                                <th style={{ padding: '12px 20px', color: '#475569', fontWeight: '600', whiteSpace: 'nowrap' }}>Product</th>
+                                <th style={{ padding: '12px 20px', color: '#475569', fontWeight: '600', whiteSpace: 'nowrap' }}>Action</th>
+                                <th style={{ padding: '12px 20px', color: '#475569', fontWeight: '600', whiteSpace: 'nowrap' }}>Units</th>
+                                <th style={{ padding: '12px 20px', color: '#475569', fontWeight: '600', whiteSpace: 'nowrap' }}>Operator</th>
+                                <th style={{ padding: '12px 20px', color: '#475569', fontWeight: '600', whiteSpace: 'nowrap' }}>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {recent_logs.length === 0 ? (
+                                <tr>
+                                    <td colSpan="5" style={{ padding: '36px', textAlign: 'center', color: '#94a3b8' }}>
+                                        No stock movements recorded yet.
                                     </td>
-                                    <td style={{ padding: '14px 24px', fontWeight: '700' }}>{log.quantity_change}</td>
-                                    <td style={{ padding: '14px 24px', color: '#64748b' }}>{log.user?.name}</td>
-                                    <td style={{ padding: '14px 24px', color: '#64748b' }}>{new Date(log.created_at).toLocaleDateString()}</td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ) : (
+                                recent_logs.map((log) => (
+                                    <tr key={log.id} className="data-row" style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                        <td style={{ padding: '14px 20px', fontWeight: '600', color: '#0f172a', whiteSpace: 'nowrap' }}>
+                                            {log.product?.name}
+                                        </td>
+                                        <td style={{ padding: '14px 20px', whiteSpace: 'nowrap' }}>
+                                            <span style={{
+                                                display: 'inline-block',
+                                                padding: '3px 8px',
+                                                borderRadius: '9999px',
+                                                fontSize: '11px',
+                                                fontWeight: '700',
+                                                letterSpacing: '0.4px',
+                                                whiteSpace: 'nowrap',
+                                                backgroundColor: log.type === 'IN' ? '#ecfdf5' : '#fffbeb',
+                                                color: log.type === 'IN' ? '#059669' : '#d97706',
+                                                border: `1px solid ${log.type === 'IN' ? '#a7f3d0' : '#fde68a'}`
+                                            }}>
+                                                {log.type === 'IN' ? 'STOCK IN' : 'STOCK OUT'}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '14px 20px', fontWeight: '700', whiteSpace: 'nowrap' }}>
+                                            {log.quantity_change}
+                                        </td>
+                                        <td style={{ padding: '14px 20px', color: '#64748b', whiteSpace: 'nowrap' }}>
+                                            {log.user?.name}
+                                        </td>
+                                        <td style={{ padding: '14px 20px', color: '#64748b', whiteSpace: 'nowrap' }}>
+                                            {new Date(log.created_at).toLocaleDateString()}
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </AppLayout>
     );

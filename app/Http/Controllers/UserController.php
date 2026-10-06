@@ -53,7 +53,7 @@ class UserController extends Controller
     public function create()
     {
         return Inertia::render('Users/Create', [
-            'availableRoles' => ['User', 'Manager'],
+            'availableRoles' => ['User', 'Manager', 'Admin'],
         ]);
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'role' => 'required|in:User,Manager',
+            'role' => 'required|in:User,Manager,Admin',
             'password' => ['required', 'confirmed', Password::defaults()],
             'is_active' => 'required|boolean',
         ], [
@@ -92,7 +92,7 @@ class UserController extends Controller
                 'is_active' => (bool)$user->is_active,
                 'role' => $user->roles->first()?->name ?? 'User',
             ],
-            'availableRoles' => ['User', 'Manager'],
+            'availableRoles' => ['User', 'Manager', 'Admin'],
         ]);
     }
 
@@ -106,7 +106,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role' => 'required|in:User,Manager',
+            'role' => 'required|in:User,Manager,Admin',
             'is_active' => 'required|boolean',
             'password' => ['nullable', 'confirmed', Password::defaults()],
         ], [

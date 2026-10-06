@@ -141,3 +141,70 @@ input:focus, select:focus, textarea:focus {
         scroll-behavior: auto !important;
     }
 }
+
+/* Table responsive wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+}
+
+.table-responsive th,
+.table-responsive td {
+    white-space: nowrap;
+}
+
+/* Form 2-column grid collapse */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Mobile & Tablet Breakpoints */
+@media (max-width: 768px) {
+    .nav-desktop {
+        display: none !important;
+    }
+
+    .nav-mobile-toggle {
+        display: flex !important;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .stat-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .page-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    .filter-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-mobile-toggle {
+        display: none !important;
+    }
+
+    .nav-mobile-drawer {
+        display: none !important;
+    }
+}
