@@ -6,114 +6,135 @@ export default function Dashboard({ metrics, recent_logs = [] }) {
     const roles = auth?.user?.roles || [];
     const canManage = roles.includes('Admin') || roles.includes('Manager');
 
-    const cardStyle = {
-        backgroundColor: '#ffffff',
-        padding: '20px',
-        borderRadius: '10px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-    };
-
     return (
-        <AppLayout>
-            {/* Header banner */}
+        <AppLayout breadcrumbs={[{ label: 'Dashboard' }]}>
+            {/* Header Greeting Banner */}
             <div style={{
                 backgroundColor: '#ffffff',
-                padding: '24px',
-                borderRadius: '10px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                padding: '24px 28px',
+                borderRadius: '12px',
+                border: '1px solid #e2e8f0',
                 marginBottom: '24px',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '16px'
             }}>
                 <div>
-                    <h1 style={{ fontSize: '22px', fontWeight: 'bold', margin: 0, color: '#0f172a' }}>
-                        Welcome back, {auth?.user?.name}!
+                    <h1 style={{ fontSize: '22px', fontWeight: '800', margin: 0, color: '#0f172a' }}>
+                        Operational Overview
                     </h1>
                     <p style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '14px' }}>
-                        Logged in role: <strong style={{ color: '#2563eb' }}>{roles.join(', ')}</strong>
+                        System live status for <strong>{auth?.user?.name}</strong> ({roles.join(', ')})
                     </p>
                 </div>
                 {canManage && (
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '12px' }}>
                         <Link
                             href="/stock-logs/create"
-                            style={{ backgroundColor: '#10b981', color: '#fff', padding: '8px 14px', borderRadius: '6px', textDecoration: 'none', fontWeight: '600', fontSize: '13px' }}
+                            className="btn-secondary"
+                            style={{ padding: '8px 16px', borderRadius: '6px', textDecoration: 'none', fontWeight: '600', fontSize: '13.5px' }}
                         >
                             + Stock Move
                         </Link>
                         <Link
                             href="/products/create"
-                            style={{ backgroundColor: '#2563eb', color: '#fff', padding: '8px 14px', borderRadius: '6px', textDecoration: 'none', fontWeight: '600', fontSize: '13px' }}
+                            className="btn-primary"
+                            style={{ padding: '8px 16px', borderRadius: '6px', textDecoration: 'none', fontWeight: '600', fontSize: '13.5px' }}
                         >
-                            + New Product
+                            + Add Product
                         </Link>
                     </div>
                 )}
             </div>
 
-            {/* Quick Metrics Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '18px', marginBottom: '24px' }}>
-                <div style={cardStyle}>
-                    <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>TOTAL PRODUCTS</span>
-                    <h2 style={{ fontSize: '28px', margin: '10px 0 0 0', color: '#0f172a' }}>{metrics?.total_products ?? 0}</h2>
+            {/* 4 Key Stat Metrics */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px', marginBottom: '28px' }}>
+                <div className="stat-card" style={{ backgroundColor: '#ffffff', padding: '22px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Total Catalogue</div>
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginTop: '8px' }}>
+                        {metrics?.total_products ?? 0}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748b', marginTop: '6px' }}>Active inventory items</div>
                 </div>
-                <div style={cardStyle}>
-                    <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>CATEGORIES</span>
-                    <h2 style={{ fontSize: '28px', margin: '10px 0 0 0', color: '#0f172a' }}>{metrics?.total_categories ?? 0}</h2>
+
+                <div className="stat-card" style={{ backgroundColor: '#ffffff', padding: '22px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Departments</div>
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginTop: '8px' }}>
+                        {metrics?.total_categories ?? 0}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748b', marginTop: '6px' }}>Product classifications</div>
                 </div>
-                <div style={{ ...cardStyle, borderLeft: '4px solid #ef4444' }}>
-                    <span style={{ fontSize: '13px', color: '#dc2626', fontWeight: '600' }}>LOW STOCK ITEMS (≤ 5)</span>
-                    <h2 style={{ fontSize: '28px', margin: '10px 0 0 0', color: '#dc2626' }}>{metrics?.low_stock_count ?? 0}</h2>
+
+                <div className="stat-card" style={{
+                    backgroundColor: '#ffffff',
+                    padding: '22px',
+                    borderRadius: '12px',
+                    border: '1px solid #fecaca',
+                    borderLeft: '5px solid #dc2626'
+                }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: '#dc2626', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Low Stock Warning</div>
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#dc2626', marginTop: '8px' }}>
+                        {metrics?.low_stock_count ?? 0}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#dc2626', marginTop: '6px' }}>Items at or below 5 units</div>
                 </div>
-                <div style={cardStyle}>
-                    <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>STOCK AUDITS LOGGED</span>
-                    <h2 style={{ fontSize: '28px', margin: '10px 0 0 0', color: '#0f172a' }}>{metrics?.total_logs ?? 0}</h2>
+
+                <div className="stat-card" style={{ backgroundColor: '#ffffff', padding: '22px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Movement Audits</div>
+                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginTop: '8px' }}>
+                        {metrics?.total_logs ?? 0}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748b', marginTop: '6px' }}>Total recorded transactions</div>
                 </div>
             </div>
 
-            {/* Recent Activity Table */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', padding: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: '#0f172a' }}>Recent Stock Movements</h3>
-                    <Link href="/stock-logs" style={{ fontSize: '13px', color: '#2563eb', textDecoration: 'none', fontWeight: '600' }}>View All →</Link>
+            {/* Recent Audit Log Preview */}
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                <div style={{ padding: '18px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h2 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Recent Inventory Movements</h2>
+                        <span style={{ fontSize: '13px', color: '#64748b' }}>Latest 5 tracked warehouse transactions</span>
+                    </div>
+                    <Link href="/stock-logs" style={{ fontSize: '13.5px', color: '#2563eb', fontWeight: '600', textDecoration: 'none' }}>
+                        View All Logs →
+                    </Link>
                 </div>
 
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-                    <thead>
-                        <tr style={{ textAlign: 'left', borderBottom: '1px solid #e2e8f0', color: '#64748b' }}>
-                            <th style={{ padding: '8px 12px' }}>Product</th>
-                            <th style={{ padding: '8px 12px' }}>Action</th>
-                            <th style={{ padding: '8px 12px' }}>Quantity</th>
-                            <th style={{ padding: '8px 12px' }}>User</th>
-                            <th style={{ padding: '8px 12px' }}>Date</th>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+                    <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                        <tr>
+                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Product</th>
+                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Action</th>
+                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Units</th>
+                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Operator</th>
+                            <th style={{ padding: '12px 24px', color: '#475569', fontWeight: '600' }}>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {recent_logs.length === 0 ? (
-                            <tr><td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>No recent stock adjustments.</td></tr>
+                            <tr><td colSpan="5" style={{ padding: '36px', textAlign: 'center', color: '#94a3b8' }}>No stock movements recorded yet.</td></tr>
                         ) : (
                             recent_logs.map(log => (
-                                <tr key={log.id} style={{ borderBottom: '1px solid #f8fafc' }}>
-                                    <td style={{ padding: '10px 12px', fontWeight: '600' }}>{log.product?.name}</td>
-                                    <td style={{ padding: '10px 12px' }}>
+                                <tr key={log.id} className="data-row" style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                    <td style={{ padding: '14px 24px', fontWeight: '600', color: '#0f172a' }}>{log.product?.name}</td>
+                                    <td style={{ padding: '14px 24px' }}>
                                         <span style={{
-                                            padding: '2px 8px',
-                                            borderRadius: '4px',
+                                            padding: '3px 8px',
+                                            borderRadius: '9999px',
                                             fontSize: '11px',
                                             fontWeight: '700',
-                                            backgroundColor: log.type === 'IN' ? '#dcfce7' : '#fee2e2',
-                                            color: log.type === 'IN' ? '#166534' : '#991b1b'
+                                            backgroundColor: log.type === 'IN' ? '#ecfdf5' : '#fffbeb',
+                                            color: log.type === 'IN' ? '#059669' : '#d97706',
+                                            border: `1px solid ${log.type === 'IN' ? '#a7f3d0' : '#fde68a'}`
                                         }}>
-                                            {log.type}
+                                            {log.type === 'IN' ? 'STOCK IN' : 'STOCK OUT'}
                                         </span>
                                     </td>
-                                    <td style={{ padding: '10px 12px', fontWeight: '600' }}>{log.quantity_change}</td>
-                                    <td style={{ padding: '10px 12px', color: '#64748b' }}>{log.user?.name}</td>
-                                    <td style={{ padding: '10px 12px', color: '#64748b' }}>{new Date(log.created_at).toLocaleDateString()}</td>
+                                    <td style={{ padding: '14px 24px', fontWeight: '700' }}>{log.quantity_change}</td>
+                                    <td style={{ padding: '14px 24px', color: '#64748b' }}>{log.user?.name}</td>
+                                    <td style={{ padding: '14px 24px', color: '#64748b' }}>{new Date(log.created_at).toLocaleDateString()}</td>
                                 </tr>
                             ))
                         )}
