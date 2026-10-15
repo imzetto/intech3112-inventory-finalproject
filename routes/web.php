@@ -7,17 +7,24 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\StockLog;
 
+// 1. Root Route: Redirects authenticated users to dashboard, guest users to login
 Route::get('/', function () {
-    return Auth::check() ? redirect()->route('dashboard') : redirect('/login');
+    return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+// 2. Guest Routes: Redirects logged-in users away from auth pages back to dashboard
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return Inertia::render('Auth/Login');
+    })->name('login');
+
+    Route::get('/register', function () {
+        return Inertia::render('Auth/Register');
+    })->name('register');
 });
 
-Route::middleware(['auth'])->group(function () {
+// 3. Protected Application Routes
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard', [
             'metrics' => [
@@ -31,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 });
 
+// 4. Modular Route Imports
 require __DIR__.'/categories.php';
 require __DIR__.'/products.php';
 require __DIR__.'/stock-logs.php';

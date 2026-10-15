@@ -16,3 +16,15 @@ createInertiaApp({
         color: '#2563eb',
     },
 });
+
+// 1. Invalidate BFCache snapshot when navigating via browser back/forward
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted || (performance.navigation && performance.navigation.type === 2)) {
+        window.location.reload();
+    }
+});
+
+// 2. Intercept popstate (Back/Forward clicks) to force fresh server revalidation
+window.addEventListener('popstate', () => {
+    window.location.reload();
+});

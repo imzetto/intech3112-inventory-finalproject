@@ -1,8 +1,24 @@
-import { Head, useForm, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, useForm, Link, usePage, router } from '@inertiajs/react'; // 👈 Added usePage and router
+import { useState, useEffect } from 'react';
 import AuthLayout from '../../Layouts/AuthLayout';
 
 export default function Login() {
+    
+    const { auth } = usePage().props;
+
+    useEffect(() => {
+        if (auth?.user) {
+            window.location.replace('/dashboard');
+        }
+
+        const preventBfCache = () => {};
+        window.addEventListener('unload', preventBfCache);
+
+        return () => {
+            window.removeEventListener('unload', preventBfCache);
+        };
+    }, [auth]);
+
     const [showPassword, setShowPassword] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -27,8 +43,13 @@ export default function Login() {
         }));
     };
 
+    if (auth?.user) {
+        return null;
+    }
+
     return (
         <AuthLayout title="Sign In" subtitle="Enter your credentials to access the system.">
+            <Head title="Sign In" />
             {/* Demo Quick-Fill Bar */}
             <div style={{
                 backgroundColor: '#eff6ff',
