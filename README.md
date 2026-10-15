@@ -23,8 +23,8 @@ A modern, role-based inventory management platform built with **Laravel 12**, **
 
 ```bash
 # Clone repository
-git clone [https://github.com/imzetto/laravel-inventory-capstone.git](https://github.com/imzetto/laravel-inventory-capstone.git)
-cd laravel-inventory-capstone
+git clone [https://github.com/imzetto/intech3112-inventory-finalproject.git](https://github.com/imzetto/intech3112-inventory-finalproject.git)
+cd intech3112-inventory-finalproject
 
 # Install dependencies
 composer install
