@@ -1,6 +1,6 @@
 import AppLayout from '../../Layouts/AppLayout';
 import ConfirmModal from '../../Components/ConfirmModal';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Edit({ managedUser }) {
@@ -34,6 +34,7 @@ export default function Edit({ managedUser }) {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'User Management', href: '/users' }, { label: `Edit ${managedUser.name}` }]}>
+            <Head title={`Edit ${managedUser.name}`} />
             <ConfirmModal
                 isOpen={confirmModalOpen}
                 title="Confirm Role Change"

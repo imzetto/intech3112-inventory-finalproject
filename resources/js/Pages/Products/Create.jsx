@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 
 export default function Create({ categories = [] }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -16,7 +16,8 @@ export default function Create({ categories = [] }) {
     };
 
     return (
-        <AppLayout breadcrumbs={[{ label: 'Products', href: '/products' }, { label: 'New Product' }]}>
+        <AppLayout breadcrumbs={[{ label: 'Products', href: '/products' }, { label: 'Add Product' }]}>
+            <Head title="Add New Product" />
             <div style={{ maxWidth: '640px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '28px', boxShadow: '0 2px 4px rgba(0,0,0,0.04)' }}>
                 <h1 style={{ fontSize: '20px', fontWeight: '700', margin: '0 0 6px 0', color: '#0f172a' }}>Create Product</h1>
                 <p style={{ margin: '0 0 24px 0', color: '#64748b', fontSize: '14px' }}>Fill in the details below to add a new inventory item.</p>

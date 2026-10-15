@@ -1,6 +1,6 @@
 import AppLayout from '../../Layouts/AppLayout';
 import ConfirmModal from '../../Components/ConfirmModal';
-import { Link, usePage, router } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ categories = [], filters = {} }) {
@@ -26,6 +26,8 @@ export default function Index({ categories = [], filters = {} }) {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'Categories' }]}>
+           <Head title="Categories Management" />
+            
             <ConfirmModal
                 isOpen={modalData.isOpen}
                 title="Delete Category"

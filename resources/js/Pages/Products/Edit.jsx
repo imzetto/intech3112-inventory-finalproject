@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 
 export default function Edit({ product, categories }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -16,7 +16,8 @@ export default function Edit({ product, categories }) {
     };
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={[{ label: 'Products', href: '/products' }, { label: 'Edit Product' }]}>
+            <Head title={`Edit ${product.name}`} />
             <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#fff', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Edit Product</h2>
                 <form onSubmit={submit}>

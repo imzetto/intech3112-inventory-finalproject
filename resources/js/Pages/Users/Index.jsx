@@ -1,6 +1,6 @@
 import AppLayout from '../../Layouts/AppLayout';
 import ConfirmModal from '../../Components/ConfirmModal';
-import { Link, usePage, router } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ users = [], filters = {} }) {
@@ -25,6 +25,7 @@ export default function Index({ users = [], filters = {} }) {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'User Management' }]}>
+            <Head title="User Management" />
             <ConfirmModal
                 isOpen={modal.isOpen}
                 title={modal.user?.is_active ? 'Deactivate User Account' : 'Activate User Account'}

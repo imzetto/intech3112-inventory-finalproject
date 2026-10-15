@@ -1,5 +1,5 @@
-import AppLayout from '../Layouts/AppLayout';
-import { usePage, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
+import AppLayout from '@/Layouts/AppLayout';
 
 export default function Dashboard({ metrics, recent_logs = [] }) {
     const { auth } = usePage().props;
@@ -8,6 +8,8 @@ export default function Dashboard({ metrics, recent_logs = [] }) {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'Dashboard' }]}>
+            <Head title="Dashboard" />
+            
             {/* Header Greeting Banner */}
             <div style={{
                 backgroundColor: '#ffffff',

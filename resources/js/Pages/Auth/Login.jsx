@@ -1,4 +1,4 @@
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import AuthLayout from '../../Layouts/AuthLayout';
 
@@ -39,6 +39,7 @@ export default function Login() {
                 fontSize: '12.5px',
                 color: '#1e40af'
             }}>
+                <Head title="Sign In" />
                 <span style={{ fontWeight: '600', display: 'block', marginBottom: '6px' }}>
                     Quick-Fill Demo Credentials:
                 </span>

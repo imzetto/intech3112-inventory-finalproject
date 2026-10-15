@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -18,6 +18,7 @@ export default function Create() {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'User Management', href: '/users' }, { label: 'Add User' }]}>
+            <Head title="Add User Account" />
             <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '28px', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
                 <h1 style={{ fontSize: '20px', fontWeight: '800', margin: '0 0 6px 0', color: '#0f172a' }}>Add New User</h1>
                 <p style={{ margin: '0 0 24px 0', color: '#64748b', fontSize: '13.5px' }}>

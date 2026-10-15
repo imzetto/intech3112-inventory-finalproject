@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Index({ logs = [] }) {
     const { auth } = usePage().props;
@@ -7,7 +7,8 @@ export default function Index({ logs = [] }) {
     const canManage = roles.includes('Admin') || roles.includes('Manager');
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={[{ label: 'Stock Logs' }]}>
+            <Head title="Stock Movement Logs" />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>Stock Movement Logs</h2>
                 {canManage && (

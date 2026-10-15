@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Create({ products = [] }) {
@@ -72,6 +72,7 @@ export default function Create({ products = [] }) {
 
     return (
         <AppLayout breadcrumbs={[{ label: 'Stock Logs', href: '/stock-logs' }, { label: 'Record Adjustment' }]}>
+            <Head title="New Stock Adjustment" />
             <div style={{ maxWidth: '640px', margin: '0 auto' }}>
                 <div style={{
                     backgroundColor: '#ffffff',

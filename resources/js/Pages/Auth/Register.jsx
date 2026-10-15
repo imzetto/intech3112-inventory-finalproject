@@ -1,4 +1,4 @@
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import AuthLayout from '../../Layouts/AuthLayout';
 
 export default function Register() {
@@ -16,6 +16,7 @@ export default function Register() {
 
     return (
         <AuthLayout title="Create an Account">
+            <Head title="Create an Account" />
             <form onSubmit={submit}>
                 <div style={{ marginBottom: '14px' }}>
                     <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '600' }}>Name</label>

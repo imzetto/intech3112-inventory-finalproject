@@ -1,6 +1,6 @@
 import AppLayout from '../../Layouts/AppLayout';
 import ConfirmModal from '../../Components/ConfirmModal';
-import { Link, usePage, router } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Index({ products = [], categories = [], filters = {} }) {
@@ -31,6 +31,7 @@ export default function Index({ products = [], categories = [], filters = {} }) 
 
     return (
         <AppLayout breadcrumbs={[{ label: 'Products' }]}>
+            <Head title="Products Catalogue" />
             <ConfirmModal
                 isOpen={modalData.isOpen}
                 title="Delete Product"

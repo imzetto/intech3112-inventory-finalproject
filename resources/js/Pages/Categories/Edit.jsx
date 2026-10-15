@@ -1,5 +1,5 @@
 import AppLayout from '../../Layouts/AppLayout';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 
 export default function Edit({ category }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -13,7 +13,8 @@ export default function Edit({ category }) {
     };
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={[{ label: 'Categories', href: '/categories' }, { label: 'Edit Category' }]}>
+            <Head title={`Edit ${category.name}`} />
             <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#fff', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Edit Category</h2>
                 <form onSubmit={submit}>
