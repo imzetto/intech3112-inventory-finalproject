@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Custom Favicon -->
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" href="/favicon.png">
 
         <!-- Inertia Dynamic Tab Title -->
         <title inertia>{{ config('app.name', 'InventoryCore') }}</title>
