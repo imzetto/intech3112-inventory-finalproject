@@ -10,13 +10,6 @@ export default function Login() {
         if (auth?.user) {
             window.location.replace('/dashboard');
         }
-
-        const preventBfCache = () => {};
-        window.addEventListener('unload', preventBfCache);
-
-        return () => {
-            window.removeEventListener('unload', preventBfCache);
-        };
     }, [auth]);
 
     const [showPassword, setShowPassword] = useState(false);
@@ -119,11 +112,17 @@ export default function Login() {
             <form onSubmit={submit}>
                 {/* Email Field */}
                 <div style={{ marginBottom: '18px' }}>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>
+                    <label 
+                        htmlFor="email" 
+                        style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}
+                    >
                         Email Address <span style={{ color: '#e11d48' }}>*</span>
                     </label>
                     <input
+                        id="email"
+                        name="email"
                         type="email"
+                        autoComplete="username"
                         required
                         autoFocus
                         placeholder="name@company.com"
@@ -148,7 +147,10 @@ export default function Login() {
                 {/* Password Field with Show/Hide toggle */}
                 <div style={{ marginBottom: '18px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <label style={{ fontSize: '13px', fontWeight: '600', color: '#334155' }}>
+                        <label 
+                            htmlFor="password" 
+                            style={{ fontSize: '13px', fontWeight: '600', color: '#334155' }}
+                        >
                             Password <span style={{ color: '#e11d48' }}>*</span>
                         </label>
                         <button
@@ -168,7 +170,10 @@ export default function Login() {
                         </button>
                     </div>
                     <input
+                        id="password"
+                        name="password"
                         type={showPassword ? 'text' : 'password'}
+                        autoComplete="current-password"
                         required
                         placeholder="••••••••"
                         value={data.password}
